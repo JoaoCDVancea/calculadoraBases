@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gidole&display=swap');
+
+    * {
+        font-family: "Gidole", sans-serif;
+        font-weight: bold;
+    }
+
+    body {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: rgb(216, 250, 250);
+        text-align: center;
+    }
+
+    #titulo {
+        font-size: 50px;
+    }
+
+    #subtitulo {
+        font-size: 20px;
+    }
+
+    #botaoFinal {
+        width: 100%;
+        height: 40px;
+    }
+
+    #div_central {
+        text-align: center;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .botaoConteudoPagina {
+        width: 49%;
+        height: 40px;
+    }
+
+    input {
+        height: 20px;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor Bases</title>
+</head>
+
+<body>
+    <div>
+        <h1 id="titulo">SpTecher's Machine</h1>
+        <h3 id="subtitulo">Feita por João Carlos e Miguel de Oliveira</h3>
+    </div>
+    <div id="div_central">
+        <div>
+            <button onclick="paginaConversor()" class="botaoConteudoPagina">Conversor de Bases</button>
+            <button onclick="paginaCalculadora()" class="botaoConteudoPagina">Calculadora de Bases</button>
+        </div>
+        <div id="conteudoPagina"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    paginaConversor();
+
+    function verificar(numero, base, input) {
+        input == 1 ? textoErro1.innerHTML = `` : textoErro2.innerHTML = ``;
+        div_texto.innerHTML = ``;
+        console.log(numero);
+
+        var array = numero.split('');
+        var resultado = true;
+
+        if (numero) {
+            if (base == 'binario') {
+                array.forEach(element => {
+                    var digitosBinario = (element == '0' || element == '1')
+                    if (!digitosBinario) {
+                        resultado = false;
+                    }
+                });
+                if (resultado) {
+                    return true;
+                } else {
+                    if (input == 1) {
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número binário</i></span>`;
+                    } else if (input == 2) {
+                        textoErro2.innerHTML += `<span style="color: red"><i>Insira um número binário</i></span>`;
+                    }
+                    return false;
+                }
+            }
+
+            if (base == 'octal') {
+                array.forEach(element => {
+                    var digitosOctal = (element == '0' || element == '1' || element == '2' || element == '3' || element == '4' || element == '5' || element == '6' || element == '7');
+                    if (!digitosOctal) {
+                        resultado = false;
+                    }
+                });
+                if (resultado) {
+                    return true;
+                } else {
+                    if (input == 1) {
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número octal</i></span>`;
+                    } else if (input == 2) {
+                        textoErro2.innerHTML += `<span style="color: red"><i>Insira um número octal</i></span>`;
+                    }
+                    return false;
+                }
+            }
+
+            if (base == 'hex') {
+                array.forEach(element => {
+                    var digitosHex = (element == '0' || element == '1' || element == '2' || element == '3' || element == '4' || element == '5' || element == '6' || element == '7' || element == '8' || element == '9' || element == 'A' || element == 'B' || element == 'C' || element == 'D' || element == 'E' || element == 'F');
+                    if (!digitosHex) {
+                        resultado = false;
+                    }
+                });
+                if (resultado) {
+                    return true;
+                } else {
+                    if (input == 1) {
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número hexadecimal</i></span>`;
+                    } else if (input == 2) {
+                        textoErro2.innerHTML += `<span style="color: red"><i>Insira um número hexadecimal</i></span>`;
+                    }
+                    return false;
+                }
+            }
+
+            if (base == 'decimal') {
+                array.forEach(element => {
+                    var digitosDecimal = (element == '0' || element == '1' || element == '2' || element == '3' || element == '4' || element == '5' || element == '6' || element == '7' || element == '8' || element == '9');
+                    if (!digitosDecimal) {
+                        resultado = false;
+                    }
+                });
+                if (resultado) {
+                    return true;
+                } else {
+                    if (input == 1) {
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número decimal</i></span>`;
+                    } else if (input == 2) {
+                        textoErro2.innerHTML += `<span style="color: red"><i>Insira um número decimal</i></span>`;
+                    }
+                    return false;
+                }
+            }
+        } else {
+            if (input == 1) {
+                textoErro1.innerHTML += `<span style="color: red"><i>Insira um número!</i></span>`;
+            } else if (input == 2) {
+                textoErro2.innerHTML += `<span style="color: red"><i>Insira um número!</i></span>`;
+            }
+            return false;
+        }
+    }
+
+    function converter() {
+        var numero = (iptNumero.value).toUpperCase();
+        var base = iptBase.value;
+
+        var verificacao = verificar(numero, base, 1);
+
+        if (verificacao) {
+            if (base == 'decimal') {
+                numero = parseInt(numero, 10);
+                div_texto.innerHTML = `
+                    Binário: ${numero.toString(2)}<br>
+                    Octal: ${numero.toString(8)}<br>
+                    Hexadecimal: ${numero.toString(16).toUpperCase()}
+                `;
+            } else if (base == 'binario') {
+                numero = parseInt(numero, 2);
+                div_texto.innerHTML = `
+                    Decimal: ${numero.toString(10)}<br>
+                    Octal: ${numero.toString(8)}<br>
+                    Hexadecimal: ${numero.toString(16).toUpperCase()}
+                `;
+            } else if (base == 'octal') {
+                numero = parseInt(numero, 8);
+                div_texto.innerHTML = `
+                    Decimal: ${numero.toString(10)}<br>
+                    Binário: ${numero.toString(2)}<br>
+                    Hexadecimal: ${numero.toString(16).toUpperCase()}
+                `;
+            } else if (base == 'hex') {
+                numero = parseInt(numero, 16);
+                div_texto.innerHTML = `
+                    Decimal: ${numero.toString(10)}<br>
+                    Octal: ${numero.toString(8)}<br>
+                    Binário: ${numero.toString(2)}
+                `;
+            }
+        }
+    }
+
+    function calcular() {
+        var numero1 = iptNumero1.value.toUpperCase();
+        var numero2 = iptNumero2.value.toUpperCase();
+        var base1 = iptBase1.value;
+        var base2 = iptBase2.value;
+        var operacao = iptOperacao.value;
+
+        var resultado1 = verificar(numero1, base1, 1);
+        var resultado2 = verificar(numero2, base2, 2);
+
+        if (resultado1 && resultado2) {
+
+            if (base1 == 'decimal') {
+                var valor1 = parseInt(numero1, 10);
+            } else if (base1 == 'binario') {
+                var valor1 = parseInt(numero1, 2);
+            } else if (base1 == 'octal') {
+                var valor1 = parseInt(numero1, 8);
+            } else if (base1 == 'hex') {
+                var valor1 = parseInt(numero1, 16);
+            }
+
+            if (base2 == 'decimal') {
+                var valor2 = parseInt(numero2, 10);
+            } else if (base2 == 'binario') {
+                var valor2 = parseInt(numero2, 2);
+            } else if (base2 == 'octal') {
+                var valor2 = parseInt(numero2, 8);
+            } else if (base2 == 'hex') {
+                var valor2 = parseInt(numero2, 16);
+            }
+
+            if (operacao == '+') {
+                var valorFinal = valor1 + valor2;
+            } else if (operacao == '-') {
+                var valorFinal = valor1 - valor2;
+            } else if (operacao = 'x') {
+                var valorFinal = valor1 * valor2;
+            } else if (operacao = '/') {
+                var valorFinal = valor1 / valor2;
+            } else if (operacao = '**') {
+                var valorFinal = valor1 ** valor2;
+            }
+
+            div_texto.innerHTML = `
+                Binário: ${valorFinal.toString(2)}<br>
+                Octal: ${valorFinal.toString(8)}<br>
+                Decimal: ${valorFinal.toString(10)}<br>
+                Hexadecimal: ${valorFinal.toString(16).toUpperCase()}<br>  
+            `;
+        }
+    }
+
+    function paginaCalculadora() {
+        conteudoPagina.innerHTML = `
+            <div id="conteudoPagina">
+            <div>
+                <p><b>Insira dois números e a operação:</b></p>
+                <div id="inputNumero">
+                    <input type="text" id="iptNumero1" name="numero">
+                    <select name="base" id="iptBase1">
+                        <option value="binario">Binário (2)</option>
+                        <option value="octal">Octal (8)</option>
+                        <option value="decimal"> Decimal (10)</option>
+                        <option value="hex">Hexadecimal (16)</option>
+                    </select>
+                    <br>
+                    <div id="textoErro1"></div>
+                </div>
+                <select name="" id="iptOperacao">
+                    <option value="+">Soma ( + )</option>
+                    <option value="-">Subtração ( - )</option>
+                    <option value="x">Multiplicação ( x )</option>
+                    <option value="/">Divisão ( / )</option>
+                    <option value="**">Exponenciação ( ^ )</option>
+                </select>
+                <div id="inputNumero">
+                    <input type="text" id="iptNumero2" name="numero">
+                    <select name="base" id="iptBase2">
+                        <option value="binario">Binário (2)</option>
+                        <option value="octal">Octal (8)</option>
+                        <option value="decimal"> Decimal (10)</option>
+                        <option value="hex">Hexadecimal (16)</option>
+                    </select>
+                    <br>
+                    <div id="textoErro2"></div>
+                </div>
+            </div>
+            <div style="height: 10px;"></div>
+            <button onclick="calcular()" id="botaoFinal">Calcular</button>
+            <div id="div_texto"></div>
+        </div>
+        `;
+    }
+
+    function paginaConversor() {
+        conteudoPagina.innerHTML = `
+            <div>
+                <p><b>Insira um número e sua base:</b></p>
+                <div id="inputNumero">
+                    <input type="text" id="iptNumero" name="numero">
+                    <select name="base" id="iptBase">
+                        <option value="binario">Binário (2)</option>
+                        <option value="octal">Octal (8)</option>
+                        <option value="decimal"> Decimal (10)</option>
+                        <option value="hex">Hexadecimal (16)</option>
+                    </select>
+                    <br>
+                    <div id="textoErro1"></div>
+                </div>
+            </div>
+            <div style="height: 10px;"></div>
+            <button onclick="converter()" id="botaoFinal">Converter</button>
+            <div id="div_texto"></div>
+        `;
+    }
+</script>

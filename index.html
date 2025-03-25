@@ -77,7 +77,6 @@
     function verificar(numero, base, input) {
         input == 1 ? textoErro1.innerHTML = `` : textoErro2.innerHTML = ``;
         div_texto.innerHTML = ``;
-        console.log(numero);
 
         var array = numero.split('');
         var resultado = true;
@@ -93,11 +92,9 @@
                 if (resultado) {
                     return true;
                 } else {
-                    if (input == 1) {
-                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número binário</i></span>`;
-                    } else if (input == 2) {
+                    input == 1 ?
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número binário</i></span>` :
                         textoErro2.innerHTML += `<span style="color: red"><i>Insira um número binário</i></span>`;
-                    }
                     return false;
                 }
             }
@@ -112,11 +109,9 @@
                 if (resultado) {
                     return true;
                 } else {
-                    if (input == 1) {
-                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número octal</i></span>`;
-                    } else if (input == 2) {
+                    input == 1 ?
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número octal</i></span>` :
                         textoErro2.innerHTML += `<span style="color: red"><i>Insira um número octal</i></span>`;
-                    }
                     return false;
                 }
             }
@@ -131,11 +126,9 @@
                 if (resultado) {
                     return true;
                 } else {
-                    if (input == 1) {
-                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número hexadecimal</i></span>`;
-                    } else if (input == 2) {
+                    input == 1 ?
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número hexadecimal</i></span>` :
                         textoErro2.innerHTML += `<span style="color: red"><i>Insira um número hexadecimal</i></span>`;
-                    }
                     return false;
                 }
             }
@@ -150,20 +143,16 @@
                 if (resultado) {
                     return true;
                 } else {
-                    if (input == 1) {
-                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número decimal</i></span>`;
-                    } else if (input == 2) {
+                    input == 1 ?
+                        textoErro1.innerHTML += `<span style="color: red"><i>Insira um número decimal</i></span>` :
                         textoErro2.innerHTML += `<span style="color: red"><i>Insira um número decimal</i></span>`;
-                    }
                     return false;
                 }
             }
         } else {
-            if (input == 1) {
-                textoErro1.innerHTML += `<span style="color: red"><i>Insira um número!</i></span>`;
-            } else if (input == 2) {
+            input == 1 ?
+                textoErro1.innerHTML += `<span style="color: red"><i>Insira um número!</i></span>` :
                 textoErro2.innerHTML += `<span style="color: red"><i>Insira um número!</i></span>`;
-            }
             return false;
         }
     }
@@ -243,11 +232,11 @@
                 var valorFinal = valor1 + valor2;
             } else if (operacao == '-') {
                 var valorFinal = valor1 - valor2;
-            } else if (operacao = 'x') {
+            } else if (operacao == 'x') {
                 var valorFinal = valor1 * valor2;
-            } else if (operacao = '/') {
+            } else if (operacao == '/') {
                 var valorFinal = valor1 / valor2;
-            } else if (operacao = '**') {
+            } else if (operacao == '**') {
                 var valorFinal = valor1 ** valor2;
             }
 
